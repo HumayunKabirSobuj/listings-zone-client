@@ -5,6 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../provider/AuthProvider";
 import useAxiosCommon from "../../Hooks/useAxiosCommon";
 import { useQuery } from "@tanstack/react-query";
+import { TbFidgetSpinner } from "react-icons/tb";
 
 export default function Registration() {
 
@@ -27,7 +28,7 @@ export default function Registration() {
 
 
   const navigate = useNavigate();
-  const { createUser, updateUserProfile, googleLogin, logOut } =
+  const { createUser, updateUserProfile, googleLogin, logOut, loading } =
     useContext(AuthContext);
   const handleRegister = async (e) => {
 
@@ -146,10 +147,15 @@ export default function Registration() {
         />
       </form>
       <button
+        disabled={loading}
         onClick={handleGoogleSignIn}
-        className="btn bg-[#303030] w-full text-white  rounded-b-xl rounded-t-none hover:bg-[#303030] my-3"
+        className="btn bg-[#303030] w-full text-white  rounded-b-xl rounded-t-none hover:bg-[#303030] my-2"
       >
-        Register With Google
+        {loading ? (
+          <TbFidgetSpinner className="animate-spin m-auto"></TbFidgetSpinner>
+        ) : (
+          "Login With Google"
+        )}
       </button>
       <Link
         to={"/"}

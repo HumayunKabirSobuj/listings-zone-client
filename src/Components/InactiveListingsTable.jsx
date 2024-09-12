@@ -4,15 +4,18 @@ import { GiSightDisabled } from "react-icons/gi";
 import { MdDelete } from "react-icons/md";
 import { Link } from "react-router-dom";
 
-export default function InactiveListingsTable({ handleDeleteContest, inactiveListings }) {
+export default function InactiveListingsTable({
+  handleDeleteContest,
+  inactiveListings,
+}) {
   return (
     <div>
       <div>
-        <div className="overflow-x-auto lg:pl-10">
-          <table className="table">
+        <div className="overflow-x-auto max-w-[90%] mx-auto lg:pl-10  ">
+          <table className="table bg-yellow-100">
             {/* head */}
             <thead>
-              <tr className="lg:text-lg">
+              <tr className="lg:text-lg border-gray-800 border-2">
                 <th>No</th>
                 <th>Photo</th>
                 <th>Name</th>
@@ -22,11 +25,11 @@ export default function InactiveListingsTable({ handleDeleteContest, inactiveLis
             </thead>
             <tbody>
               {inactiveListings.map((listing, idx) => (
-                <tr key={listing._id}>
+                <tr key={listing._id} className="border-2 border-gray-900">
                   <th>{idx + 1}</th>
                   <td>
                     <div className="avatar">
-                      <div className="w-16 rounded">
+                      <div className="w-16 rounded-full">
                         <img
                           src={listing?.Photo}
                           alt="Tailwind-CSS-Avatar-component"

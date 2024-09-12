@@ -10,6 +10,7 @@ import ActiveListing from "./Pages/ActiveListings.jsx/ActiveListing";
 import InActiveListings from "./Pages/InActiveListings/InActiveListings";
 import EditListings from "./Pages/EditListings/EditListings";
 import ManageListings from "./Pages/ManageListings/ManageListings";
+import Error from "./Pages/ErrorPage/Error";
 
 export const router = createBrowserRouter([
   {
@@ -19,6 +20,7 @@ export const router = createBrowserRouter([
         <Dashboard></Dashboard>
       </PrivateRoute>
     ),
+    errorElement: <Error></Error>,
     children: [
       {
         index: true,

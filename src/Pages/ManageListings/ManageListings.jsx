@@ -40,12 +40,12 @@ export default function ManageListings() {
 
   return (
     <div>
-      <h1 className="text-2xl text-center font-bold my-5">Manage Listings </h1>
-      <div className="overflow-x-auto lg:px-10">
-        <table className="table">
+      <h1 className="text-2xl text-center font-bold my-5 ">Manage Listings </h1>
+      <div className="overflow-x-auto max-w-[90%] mx-auto lg:pl-10  py-5">
+        <table className="table bg-yellow-100">
           {/* head */}
           <thead>
-            <tr>
+            <tr className="lg:text-lg border-gray-800 border-2">
               <th>No</th>
               <th>Photo</th>
               <th>Name</th>
@@ -55,12 +55,12 @@ export default function ManageListings() {
           </thead>
           <tbody>
             {AllListings.map((listing, idx) => (
-              <tr key={listing._id}>
+              <tr key={listing._id} className="border-2 border-gray-900">
                 <th>{idx + 1}</th>
                 <td>
                   <td>
                     <div className="avatar">
-                      <div className="w-16 rounded">
+                      <div className="w-16 rounded-full">
                         <img
                           src={listing?.Photo}
                           alt="Tailwind-CSS-Avatar-component"

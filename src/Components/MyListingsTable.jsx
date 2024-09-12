@@ -1,6 +1,5 @@
 /* eslint-disable react/prop-types */
 export default function MyListingsTable({ myListings }) {
-  console.log(myListings)
   
   return (
     <div>

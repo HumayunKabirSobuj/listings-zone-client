@@ -12,13 +12,11 @@ export default function ManageListings() {
   });
 
   const handleActive=(id)=>{
-    // console.log(id)
     const updateListing = {
       ActiveStatus: "active",
     };
     axiosCommon.patch(`/listings/active/${id}`, updateListing)
     .then(res=>{
-        // console.log(res.data)
         if(res.data.modifiedCount>0){
             Swal.fire({
               position: "top",

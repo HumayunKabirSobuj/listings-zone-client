@@ -15,10 +15,8 @@ export default function MyCreatedListings() {
     },
   });
 
-//   console.log(AllListings)
 
 const myListings = AllListings.filter((listing) => listing.Creator === user?.email);
-// console.log("my Listings : ", myListings)
 
   return (
     <div>

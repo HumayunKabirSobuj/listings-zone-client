@@ -7,7 +7,6 @@ export default function EditListings() {
   const axiosCommon = useAxiosCommon();
   const loddedListing = useLoaderData();
   const { _id } = loddedListing;
-  // console.log(loddedListing)
   const navigate = useNavigate();
   const HandleEditListings = (e) => {
     e.preventDefault();
@@ -17,10 +16,8 @@ export default function EditListings() {
     const Photo = form.photo.value;
 
     const listingData = { Name, Description, Photo };
-    console.log(listingData);
 
     axiosCommon.patch(`/listings/edit/${_id}`, listingData).then((res) => {
-      // console.log(res.data)
       if (res.data.modifiedCount > 0) {
         Swal.fire({
           position: "top",

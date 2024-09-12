@@ -23,7 +23,6 @@ export default function Registration() {
     },
   });
 
-  // console.log(users)
   
 
 
@@ -41,7 +40,6 @@ export default function Registration() {
 
     try {
       const result = await createUser(email, password);
-      console.log(result);
       await updateUserProfile(name, photo);
       
       const findEmail = AllUsers.find((user) => user?.email === email);
@@ -56,7 +54,6 @@ export default function Registration() {
         };
 
         axiosCommon.post("/users", userInfo).then((res) => {
-          console.log(res.data);
           toast.success("Registration Succesfully");
           logOut();
           navigate("/login");
@@ -73,7 +70,6 @@ export default function Registration() {
     googleLogin()
       .then((result) => {
         const user = result.user;
-        console.log(user);
 
        
         const findEmail = AllUsers.find(
@@ -92,7 +88,6 @@ export default function Registration() {
           };
 
           axiosCommon.post("/users", userInfo).then((res) => {
-            console.log(res.data);
             toast.success("Google Registration Successfully");
             navigate("/"); 
           });

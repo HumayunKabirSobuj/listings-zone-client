@@ -111,8 +111,7 @@ const LoginFormComponent = (riveProps = {}) => {
   const handleGoogleSignIn = () => {
     googleLogin()
       .then((result) => {
-        const user = result.user;
-        console.log(user);
+        
 
         const findEmail = AllUsers.find(
           (user) => user?.email === result?.user?.email
@@ -128,7 +127,6 @@ const LoginFormComponent = (riveProps = {}) => {
           };
 
           axiosCommon.post("/users", userInfo).then((res) => {
-            console.log(res.data);
             toast.success("Google Registration Successfully");
             navigate("/");
           });
@@ -158,7 +156,6 @@ const LoginFormComponent = (riveProps = {}) => {
     console.table(email, password);
     try {
       const result = await signIn(email, password);
-      console.log(result);
       toast.success("Registration Succesfully");
       navigate("/");
     } catch (error) {

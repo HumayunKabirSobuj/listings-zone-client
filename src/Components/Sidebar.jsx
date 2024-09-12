@@ -25,7 +25,6 @@ export default function Sidebar() {
   });
 
   const matchUser=AllUsers.find(oneUser=>oneUser.email===user?.email);
-  console.log(matchUser)
 
   return (
     <div className="flex z-50">

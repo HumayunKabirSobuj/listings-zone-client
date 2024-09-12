@@ -1,10 +1,11 @@
 import { useContext, useState } from "react";
 import { BsGraphUp } from "react-icons/bs";
-import { FaUser } from "react-icons/fa";
 import { IoCreateOutline, IoLogOut } from "react-icons/io5";
 import { MdAirplanemodeActive, MdOutlineAirplanemodeInactive, MdOutlineManageHistory } from "react-icons/md";
 import { Link, NavLink } from "react-router-dom";
 import { AuthContext } from "../provider/AuthProvider";
+import useAxiosCommon from "../Hooks/useAxiosCommon";
+import { useQuery } from "@tanstack/react-query";
 
 export default function Sidebar() {
   const {logOut}=useContext(AuthContext)
@@ -12,6 +13,19 @@ export default function Sidebar() {
 
   const toggleSidebar = () => setIsOpen(!isOpen);
   const closeSidebar = () => setIsOpen(false);
+
+  const {user}=useContext(AuthContext);
+  const axiosCommon = useAxiosCommon();
+  const { data: AllUsers = [] } = useQuery({
+    queryKey: ["users"],
+    queryFn: async () => {
+      const res = await axiosCommon.get("/users");
+      return res.data;
+    },
+  });
+
+  const matchUser=AllUsers.find(oneUser=>oneUser.email===user?.email);
+  console.log(matchUser)
 
   return (
     <div className="flex z-50">
@@ -59,7 +73,7 @@ export default function Sidebar() {
           </svg>
         </button>
 
-        <nav className="max-md:mt-10 flex flex-col justify-evenly max-md:max-h-screen h-screen">
+        <nav className="mt-10 flex flex-col justify-between max-md:max-h-screen h-screen">
           <div>
             <NavLink
               to="/"
@@ -75,97 +89,93 @@ export default function Sidebar() {
               <span className="mx-4 font-medium">Dashboard</span>
             </NavLink>
 
-            {/* User Dashboard */}
+            {/* {matchUser.role === "user" && ( */}
+            {matchUser?.role === "user" && 
+              <div>
+                {/* User Dashboard */}
 
-            <NavLink
-              to="create-new-listings"
-              end
-              className={({ isActive }) =>
-                `flex items-center px-4 py-2 my-5  transition-colors duration-300 transform  hover:bg-gray-300   hover:text-gray-700 ${
-                  isActive ? "bg-gray-300  text-gray-700" : "text-gray-600"
-                }`
-              }
-            >
-              <IoCreateOutline className="w-5 h-5" />
+                <NavLink
+                  to="create-new-listings"
+                  end
+                  className={({ isActive }) =>
+                    `flex items-center px-4 py-2 my-5  transition-colors duration-300 transform  hover:bg-gray-300   hover:text-gray-700 ${
+                      isActive ? "bg-gray-300  text-gray-700" : "text-gray-600"
+                    }`
+                  }
+                >
+                  <IoCreateOutline className="w-5 h-5" />
 
-              <span className="mx-4 font-medium">Create New Listings</span>
-            </NavLink>
-            <NavLink
-              to="my-created-listings"
-              end
-              className={({ isActive }) =>
-                `flex items-center px-4 py-2 my-5  transition-colors duration-300 transform  hover:bg-gray-300   hover:text-gray-700 ${
-                  isActive ? "bg-gray-300  text-gray-700" : "text-gray-600"
-                }`
-              }
-            >
-              <IoCreateOutline className="w-5 h-5" />
+                  <span className="mx-4 font-medium">Create New Listings</span>
+                </NavLink>
+                <NavLink
+                  to="my-created-listings"
+                  end
+                  className={({ isActive }) =>
+                    `flex items-center px-4 py-2 my-5  transition-colors duration-300 transform  hover:bg-gray-300   hover:text-gray-700 ${
+                      isActive ? "bg-gray-300  text-gray-700" : "text-gray-600"
+                    }`
+                  }
+                >
+                  <IoCreateOutline className="w-5 h-5" />
 
-              <span className="mx-4 font-medium">My Created Listings</span>
-            </NavLink>
+                  <span className="mx-4 font-medium">My Created Listings</span>
+                </NavLink>
 
-            <NavLink
-              to="active-listings"
-              end
-              className={({ isActive }) =>
-                `flex items-center px-4 py-2 my-5  transition-colors duration-300 transform  hover:bg-gray-300   hover:text-gray-700 ${
-                  isActive ? "bg-gray-300  text-gray-700" : "text-gray-600"
-                }`
-              }
-            >
-              <MdAirplanemodeActive className="w-5 h-5" />
+                <NavLink
+                  to="active-listings"
+                  end
+                  className={({ isActive }) =>
+                    `flex items-center px-4 py-2 my-5  transition-colors duration-300 transform  hover:bg-gray-300   hover:text-gray-700 ${
+                      isActive ? "bg-gray-300  text-gray-700" : "text-gray-600"
+                    }`
+                  }
+                >
+                  <MdAirplanemodeActive className="w-5 h-5" />
 
-              <span className="mx-4 font-medium">Active Listings</span>
-            </NavLink>
+                  <span className="mx-4 font-medium">Active Listings</span>
+                </NavLink>
 
-            <NavLink
-              to="inactive-listings"
-              end
-              className={({ isActive }) =>
-                `flex items-center px-4 py-2 my-5  transition-colors duration-300 transform  hover:bg-gray-300   hover:text-gray-700 ${
-                  isActive ? "bg-gray-300  text-gray-700" : "text-gray-600"
-                }`
-              }
-            >
-              <MdOutlineAirplanemodeInactive className="w-5 h-5" />
+                <NavLink
+                  to="inactive-listings"
+                  end
+                  className={({ isActive }) =>
+                    `flex items-center px-4 py-2 my-5  transition-colors duration-300 transform  hover:bg-gray-300   hover:text-gray-700 ${
+                      isActive ? "bg-gray-300  text-gray-700" : "text-gray-600"
+                    }`
+                  }
+                >
+                  <MdOutlineAirplanemodeInactive className="w-5 h-5" />
 
-              <span className="mx-4 font-medium">Inactive Listings</span>
-            </NavLink>
+                  <span className="mx-4 font-medium">Inactive Listings</span>
+                </NavLink>
+              </div>
+            }
 
             {/* Admin Dashboard */}
 
-            <NavLink
-              to="manage-listings"
-              end
-              className={({ isActive }) =>
-                `flex items-center px-4 py-2 my-5  transition-colors duration-300 transform  hover:bg-gray-300   hover:text-gray-700 ${
-                  isActive ? "bg-gray-300  text-gray-700" : "text-gray-600"
-                }`
-              }
-            >
-              <MdOutlineManageHistory className="w-5 h-5" />
+            {matchUser?.role === "admin" && (
+              <div>
+                <NavLink
+                  to="manage-listings"
+                  end
+                  className={({ isActive }) =>
+                    `flex items-center px-4 py-2 my-5  transition-colors duration-300 transform  hover:bg-gray-300   hover:text-gray-700 ${
+                      isActive ? "bg-gray-300  text-gray-700" : "text-gray-600"
+                    }`
+                  }
+                >
+                  <MdOutlineManageHistory className="w-5 h-5" />
 
-              <span className="mx-4 font-medium">Manage Listings</span>
-            </NavLink>
+                  <span className="mx-4 font-medium">Manage Listings</span>
+                </NavLink>
+              </div>
+            )}
           </div>
           <div>
-            <NavLink
-              to="/profile"
-              end
-              className={({ isActive }) =>
-                `flex items-center px-4 py-2 my-5  transition-colors duration-300 transform  hover:bg-gray-300   hover:text-gray-700 ${
-                  isActive ? "bg-gray-300  text-gray-700" : "text-gray-600"
-                }`
-              }
-            >
-              <FaUser className="w-5 h-5" />
-
-              <span className="mx-4 font-medium">Profile</span>
-            </NavLink>
+            
             <Link
               onClick={logOut}
-              className="flex items-start px-4 py-2 my-5  bg-red-400"
-             
+              className="flex items-start px-4 mb-20 py-2  bg-red-400"
             >
               <IoLogOut className="w-5 h-5" />
 

@@ -3,9 +3,10 @@ import { useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../provider/AuthProvider";
 
-export default function CreateListingsModal({ handleAddListings }) {
+export default function EditListingModal({ loddedListing, HandleEditListings }) {
+  const { Name, Description, Photo } = loddedListing;
   const navigate = useNavigate();
-  const {user}=useContext(AuthContext)
+  const { user } = useContext(AuthContext);
 
   useEffect(() => {
     // Automatically show modal when component is loaded
@@ -16,9 +17,8 @@ export default function CreateListingsModal({ handleAddListings }) {
     // Close the modal
     document.getElementById("my_modal_2").close();
     // Navigate to /dashboard
-    navigate("/");
+    navigate("/my-created-listings");
   };
-
   return (
     <div>
       <dialog id="my_modal_2" className="modal">
@@ -33,15 +33,20 @@ export default function CreateListingsModal({ handleAddListings }) {
           </button>
 
           <h3 className="font-bold text-lg mb-4 text-center">
-            Create New Listing
+            Update Your Listing
           </h3>
 
-          <form onSubmit={handleAddListings} className="space-y-4">
+          <form onSubmit={HandleEditListings} className="space-y-4">
             {/* Title */}
             <div>
               <label className="input input-bordered flex items-center gap-2   w-full  bg-[#f1f1f1] hover:rounded-none hover:border-none border-none rounded-none">
                 <span className="text-[#a7a3b5]">Name </span>
-                <input type="text" name="name" className="grow" />
+                <input
+                  defaultValue={Name}
+                  type="text"
+                  name="name"
+                  className="grow"
+                />
               </label>
             </div>
 
@@ -49,7 +54,11 @@ export default function CreateListingsModal({ handleAddListings }) {
             <div>
               <label className="flex items-center gap-2 w-full bg-[#f1f1f1] hover:rounded-none hover:border-none border-none rounded-none">
                 <span className="text-[#a7a3b5] pl-3">Description</span>
-                <textarea name="description" className="textarea textarea-md bg-[#f1f1f1] border-none w-full resize-none focus:outline-none focus:ring-0"></textarea>
+                <textarea
+                  defaultValue={Description}
+                  name="description"
+                  className="textarea textarea-md bg-[#f1f1f1] border-none w-full resize-none focus:outline-none focus:ring-0"
+                ></textarea>
               </label>
             </div>
 
@@ -57,7 +66,12 @@ export default function CreateListingsModal({ handleAddListings }) {
             <div>
               <label className="input input-bordered flex items-center gap-2   w-full  bg-[#f1f1f1] hover:rounded-none hover:border-none border-none rounded-none">
                 <span className="text-[#a7a3b5]">Photo URL </span>
-                <input type="url" name="photo" className="grow" />
+                <input
+                  defaultValue={Photo}
+                  type="url"
+                  name="photo"
+                  className="grow"
+                />
               </label>
             </div>
 
@@ -65,13 +79,23 @@ export default function CreateListingsModal({ handleAddListings }) {
             <div>
               <label className="input input-bordered flex items-center gap-2   w-full  bg-[#f1f1f1] hover:rounded-none hover:border-none border-none rounded-none">
                 <span className="text-[#a7a3b5]">Creator</span>
-                <input type="text" defaultValue={user?.email} disabled name="creator" className="grow" />
+                <input
+                  type="text"
+                  defaultValue={user?.email}
+                  disabled
+                  name="creator"
+                  className="grow"
+                />
               </label>
             </div>
 
             {/* Submit Button */}
             <div className="flex justify-center">
-              <input type="submit" className="btn bg-yellow-200 max-md:w-full w-1/3" value="Submit" />
+              <input
+                type="submit"
+                className="btn bg-yellow-200 max-md:w-full w-1/3"
+                value="Submit"
+              />
             </div>
           </form>
         </div>

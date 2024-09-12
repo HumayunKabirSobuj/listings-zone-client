@@ -1,7 +1,7 @@
 import axios from "axios"
 
 export const axiosCommon = axios.create({
-  baseURL: "http://localhost:5000",
+  baseURL: "https://listings-hub-server.vercel.app",
 });
 
 export default function useAxiosCommon() {

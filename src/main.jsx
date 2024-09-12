@@ -11,7 +11,7 @@ import {
 } from "@tanstack/react-query";
 const queryClient = new QueryClient();
 createRoot(document.getElementById("root")).render(
-  <div className="container mx-auto">
+  <div className=" mx-auto">
     <StrictMode>
       <QueryClientProvider client={queryClient}>
         <AuthProvider>

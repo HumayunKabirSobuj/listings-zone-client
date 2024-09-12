@@ -3,7 +3,7 @@ import Sidebar from "../../Components/Sidebar";
 
 export default function Dashboard() {
   return (
-    <div className="flex">
+    <div className="flex overflow-hidden">
       <div>
         <Sidebar></Sidebar>
       </div>

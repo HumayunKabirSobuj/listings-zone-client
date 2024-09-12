@@ -62,6 +62,7 @@ export default function InActiveListings() {
     };
   return (
     <div>
+      <h1 className="text-2xl font-bold text-center my-5">Inactive Listings</h1>
       <InactiveListingsTable
         handleDeleteContest={handleDeleteContest}
         inactiveListings={inactiveListings}
